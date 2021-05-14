@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Review database</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<style type="text/css">
+	.navbar-custom {
+		background: #000000;
+		font-family: "Montserrat", "Helvetica Neue", Helvetic,Arial, sans-serif;
+		text-transform: none;
+		font-weight: 700;
+		font-size: x-large;
+		border: none;
+		padding-left: 5%;
+		padding-right: 5%;
+		text-align: center;
+		color: white;
+		width: 100%;
+	}
+	a:link, a:visited {
+		background-color: #f44336;
+		color: white;
+		padding: 14px 25px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+	}
+
+	a:hover, a:active {
+		background-color: red;
+	}
+
+	.footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: black;
+        color: white;
+        text-align: center;
+        font-size: x-large;
+        padding: 0.4%;
+    }
+</style>
+
+<body>
+
+	<nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<h2 style="color:white; ">Review Detection</h2>
+			</div>
+		</div>
+	</nav>
+	<br><br><br>
+	<div class="container">
+		<br>
+		
+        <div class="row">
+			
+            <div class="col-lg-4">
+                <img class="img-responsive" src="{{ product.image }}"> 				
+                <br><br>
+                <a href="{{ product.url }}" target="_blank">View the product on Amazon</a>
+			</div>
+
+			<div class="col-lg-8">
+                <h2>{{ product.title }}</h2>
+                <br>
+                <h4><b>ASIN</b> - {{ product.productid }}</h4>
+                <br>
+                <h4><b>Price</b> - {{ product.price }}</h4>
+                <br>
+                <h4><b>Overall Rating</b> - {{ product.rating }} </h4>
+                <br>
+                <h4><b>Number of Reviews</b> - {{ product.reviews }} </h4>
+            </div>
+
+        </div>
+		
+        <br><br>
+		
+        <table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Date</th>
+					<th>Name</th>
+					<th>Title</th>
+					<th>Content</th>
+					<th>Rating</th>
+				</tr>
+			</thead>
+			<tbody>
+                {% for row in reviews %}
+                <tr>
+                    <td>{{ row.date_info}}</td>
+                    <td>{{ row.name}}</td>
+                    <td>{{ row.title}}</td>
+                    <td>{{ row.content}}</td>
+                    <td>{{ row.rating}}</td>
+                </tr>
+                {% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+	<!-- Footer -->
+	<!-- <div class="footer">
+        <p>Footer</p>
+    </div> -->
+
+</body>
+</html>

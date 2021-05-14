@@ -1,0 +1,171 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Review Detection</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+
+    <style type="text/css">
+
+    	header {
+    		text-align: center;
+			background:#99ccff;
+    		color: black;
+    	}
+
+    	header .container {
+    		padding-top: 60px;
+    		padding-bottom: 40px;
+    		z-index: 1
+    	}
+
+    	header .intro-text {
+    		display: block;
+    		font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    		text-transform: uppercase;
+    		font-weight: 700;
+    		font-size: 2em;
+    	}
+
+    	@media (min-width: 768px) {
+    		header .container { padding-top: 120px; padding-bottom: 70px; }
+    		header .intro-text .name { font-size: 4.75em; }
+    		header .intro-text .skills { font-size: 2em; }
+    	}
+
+    	.navbar-custom {
+    		background: #2C3E50;
+    		font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    		text-transform: none;
+    		font-weight: 700;
+			font-size: x-large;
+    		border: none;
+			padding-left: 5%;
+			padding-right: 5%;
+    		text-align: center;
+    		color: white;
+    		width: 100%;
+    	}
+
+    	footer {
+    		color: white;
+    		width: 100%;
+    		position: absolute;
+    		left: 0;
+    		bottom: 0;
+    		padding: 1px 1px;
+    		background-color: #233140;
+		}
+		
+		#id_url {
+			width: 70%;
+			margin: 0 auto;
+			color: black;
+			font-weight: 100;
+			font-size: medium;
+		}
+
+		.maincontent {
+			display:block;
+		}
+
+		.loader {
+			margin-top: 10%;
+			display: none;
+		}
+
+		.loader img {
+			height: 250px;
+		}
+
+    </style>
+
+</head>
+
+<body class="index homepage">
+
+	<nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<h2 style="color:white; ">Review Detection</h2>
+			</div>
+		</div>
+	</nav>
+
+	<header style="height: 97%;">
+		<div class="container">
+			<div class="row maincontent">
+				<div class="intro-text">
+					<h1> Not sure Product reviews are Fake or Real? </h1>
+					<h2> Check here &#8595;</h2>
+					<hr class="star-light">
+					<br/>
+				</div>
+
+				<form method="post" onsubmit="return showLoader();">
+
+					{% csrf_token %}
+					<div class="input-group" style="margin: 0 auto;">
+						<label><h2>Enter URL</h2></label><br>
+					</div>
+					
+					{{ form.url }}
+
+					<br/><br/><br/>
+					<input class="btn btn-primary" type="submit" value="Submit" style="font-size: 20px;">
+				
+				</form>
+			</div>
+
+			<div class="row loader">
+				<img src="loading.gif"></img>
+				<h3>Your reviews are being processed...</h3>
+				<h3>Please wait...</h3>
+			</div>
+		</div>
+	</header>
+
+	<!-- Footer -->
+	<footer class="text-center maincontent">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6 col-md-3 item">
+					<h3>Tools Used</h3>
+					<ul>
+						<li><a href="#">Web design</a></li>
+						<li><a href="#">Development</a></li>
+						<li><a href="#">Hosting</a></li>
+					</ul>
+				</div>
+				<div class="col-sm-6 col-md-3 item">
+					<h3>About</h3>
+					<ul>
+						<li><a href="#">Company</a></li>
+						<li><a href="#">Team</a></li>
+						<li><a href="#">Careers</a></li>
+					</ul>
+				</div>
+				<div class="col-md-6 item text">
+					<h3>Company Name</h3>
+					<p>Praesent sed lobortis mi. Suspendisse vel placerat ligula. Vivamus ac sem lacus. Ut vehicula rhoncus elementum. Etiam quis tristique lectus. Aliquam in arcu eget velit pulvinar dictum vel in justo.</p>
+				</div>
+				<div class="col item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a></div>
+			</div>
+		</div>
+	</footer>
+
+</body>
+
+<script>
+	function showLoader() {
+		document.getElementsByClassName("maincontent")[0].style.display = "none";
+		document.getElementsByClassName("maincontent")[1].style.display = "none";
+		document.getElementsByClassName("loader")[0].style.display = "block";
+	}
+</script>
+
+</html>
