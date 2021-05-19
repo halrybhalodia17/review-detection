@@ -31,9 +31,9 @@ def geturl(request):
 			productinfo["reviews"] = true+fake
 
 			context = {
-				'product': productinfo, 
-				'true': true, 
-				'fake': fake, 
+				'product': productinfo,
+				'true': true,
+				'fake': fake,
 				'adjusted': adjustedRating,
 				'star_t': star_t,
 				'star_f': star_f,
@@ -48,7 +48,7 @@ def geturl(request):
 
 	else:
 		form = URLform()
-		return render(request , 'form.html', {'form': form})
+		return render(request , 'home.html', {'form': form})
 
 
 def getviews(product_code):
@@ -57,24 +57,24 @@ def getviews(product_code):
 	response = requests.get(current_page, headers=headers)
 	soup = BeautifulSoup(response.text, "html.parser")
 	reviews = soup.find_all('div', class_ = "a-section review aok-relative")
-	
+
 	votes = []
 
 	for review in reviews:
 		try:
 			cnt_helpful = review.find('span', class_ = 'cr-vote-text').text
 			helpful_cnt = cnt_helpful[:cnt_helpful.index(' ')]
-			
+
 			if helpful_cnt == "One":
 				helpful_votes = 1
 			else:
 				helpful_votes = int(cnt_helpful[:cnt_helpful.index(' ')])
-		
+
 		except:
 			helpful_votes = 0
 
-		votes.append(helpful_votes)	
-		
+		votes.append(helpful_votes)
+
 	return votes
 
 
@@ -127,44 +127,44 @@ def getProductInfo(url):
 def getReviews(product_code):
 	review_scraper = amazon_product_review_scraper(amazon_site="amazon.in", product_asin = product_code, end_page = 150)
 	reviews_df = review_scraper.scrape()
-	
+
 	date = reviews_df['date_info'].tolist()
 	name = reviews_df['name'].tolist()
 	title = reviews_df['title'].tolist()
 	Content = reviews_df['content'].tolist()
 	Rating = reviews_df['rating'].tolist()
-	
+
 	pickle_in = open('models/review_detection.pickle', 'rb')
 	pickle_clf = pickle.load(pickle_in)
-	
+
 	result = pickle_clf.predict(Content).tolist()
 	true = result.count('1')
 	fake = result.count('0')
-	
+
 	adj_rating = []
 	votes = getviews(product_code)
-	mostvotes = 0
-	ind = -1
 
-	for i in range(len(votes)):
-		if result[i] == '1':
-			if votes[i]>mostvotes:
-				mostvotes = votes[i]
-				ind = i
+	genuineReviews = [[votes[i], i] for i in range(len(votes)) if result[i] == '1']
+	genuineReviews.sort(reverse = True)
 
-	mostHelpfulReview = {
-		"title": title[ind],
-		"stars": int(Rating[ind].split('.')[0]),
-		"content": Content[ind],
-		"date": date[ind],
-		"votes": mostvotes
-	}
+	mostHelpfulReviews = []
+	for i in range(min(3, len(genuineReviews))):
+		ind = genuineReviews[i][1]
+		mostHelpfulReviews.append(
+			{
+				"title": title[ind],
+				"stars": int(Rating[ind].split('.')[0]),
+				"content": Content[ind],
+				"date": date[ind],
+				"votes": genuineReviews[i][0]
+			}
+		)
 
 	for i in range(len(Content)):
 		if result[i]=='1':
 			s1 = Rating[i].split('.')[0]
 			adj_rating.append(int(s1))
-	
+
 	star_t = {1:0, 2:0, 3:0, 4:0, 5:0}
 	star_f = {1:0, 2:0, 3:0, 4:0, 5:0}
 
@@ -176,10 +176,10 @@ def getReviews(product_code):
 
 		elif(result[i]=='0'):
 			star_f[s1] += 1
-	
+
 	result = round(sum(adj_rating)/true, 2)
 	print(result)
-	return (true, fake, result, star_t, star_f, mostHelpfulReview)
+	return (true, fake, result, star_t, star_f, mostHelpfulReviews)
 
 def getProductId(url):
 	try:

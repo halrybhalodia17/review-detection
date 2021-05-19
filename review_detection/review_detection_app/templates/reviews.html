@@ -38,7 +38,6 @@
 	.topnav-right {
 		float: right;
 	}
-	
 
 	#producturl:link, #producturl:visited {
 		background-color: #f44336;
@@ -53,10 +52,9 @@
 		background-color: red;
 	}
 
-
     #left {
     	text-align: center;
-    	height:450px; 
+    	height:450px;
     }
 
     #right{
@@ -64,13 +62,12 @@
     	text-align: center;
     }
 
-    #container1 {
+    /* #container1 {
     	background-color:#e6fff2;
     	border: 5px solid #00b359;
     	border-radius: 50px;
     	margin-top: 10%;
     }
-
 
     #box1 {
     	float: left;
@@ -87,11 +84,28 @@
 		color: black;
 		float: left;
 		padding: 2%;
-    }
+    } */
 
     #stars {
-    	width: 25%;
+    	width: 50%;
     }
+
+	table, td {
+		padding: 2%;
+		border: 1px solid black;
+		text-align: justify;
+		vertical-align: top;
+	}
+
+	table {
+		table-layout: fixed;
+		width: 100%;
+	}
+
+	#helpfulReviews {
+		background-color:ghostwhite;
+		border: 1px solid black;
+	}
 
 </style>
 
@@ -101,9 +115,8 @@
 	  <a href="/">Review Detection</a>
 	</div>
 
-	<div class="container" style="margin-top: 5%;">
+	<div class="container" style="margin-top: 2%; margin-bottom: 2%;">
         <div class="row">
-
             <div class="col-lg-4">
                 <img class="img-responsive" src="{{ product.image }}">
                 <br><br>
@@ -121,14 +134,12 @@
                 <br>
                 <h4><b>Number of Reviews</b> - {{ product.reviews }} </h4>
             </div>
-
         </div>
-
-        <br><br>
-
 	</div>
 
-	<div class="container">
+	<hr style="height:1px;border-width:0;color:gray;background-color:gray; width: 85%;">
+
+	<div class="container" style="margin-top: 2%; margin-bottom: 5%;">
 		<div class="row">
 			<div id="left" class="col-lg-5">
 				<h3>Genuine V/S Deceptive Reviews </h3>
@@ -139,23 +150,65 @@
 		</div>
 	</div>
 
-	<div class="container" id="container1">
+	<hr style="height:1px;border-width:0;color:gray;background-color:gray; width: 85%;">
+
+	<div class="container" style="margin-top: 2%; margin-bottom: 5%;" id="helpfulReviews">
+		<div class="row">
+			<div style="text-align: center; font-weight: 900;">
+				<h1>Most Helpful Reviews</h1>
+			</div>
+		</div>
+
+		<div class="row" style="margin-top: 1%;">
+			<table>
+				<tr>
+					{% for helpful in mostHelpful %}
+					<td>
+						<h3 style="text-align: center;"> {{ helpful.title }} </h3>
+						<br><br>
+						{{ helpful.content }}
+						<br><br>
+						{% if helpful.stars == 1 %}
+							<img src="../static/1star.png" id="stars">
+						{% elif helpful.stars == 2 %}
+							<img src="../static/2star.png" id="stars">
+						{% elif helpful.stars == 3 %}
+							<img src="../static/3star.png" id="stars">
+						{% elif helpful.stars == 4 %}
+							<img src="../static/4star.png" id="stars">
+						{% else %}
+							<img src="../static/5star.png" id="stars">
+						{% endif %}
+						<br><br>
+						{{ helpful.votes }} Helpful Votes
+						<br><br>
+						{{ helpful.date }}
+					</td>
+					{% endfor %}
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<!-- <div class="container" id="container1">
 		<div id="box">
 	  		<div id="box1">
-	  			<h3><b>Most Helpful Review</b></h3>
+	  			<h3><b>Most Helpful Reviews</b></h3>
 	  			<p style="color: #00b359 ;font-size:70px;">&#129070;</p>
 	  		</div>
 	  		<div id="box2">
-				<p><b><h4>Title: </h4></b> {{ mostHelpful.title }} </p>
-				<p><b><h4>Content: </h4></b> {{ mostHelpful.content }} </p>
-				<p><b><h4>Stars: </h4></b> <img src="#" id="stars"> </p>
-				<p><b><h4>Votes: </h4></b> {{ mostHelpful.votes }} </p>
-				<p><b><h4>Date: </h4></b> {{ mostHelpful.date }} </p>
+				{% for helpful in mostHelpful %}
+					<p><b><h4>Title: </h4></b> {{ helpful.title }} </p>
+					<p><b><h4>Content: </h4></b> {{ helpful.content }} </p>
+					<!- <p><b><h4>Stars: </h4></b> <img src="#" id="stars"> </p> ->
+					<p><b><h4>Votes: </h4></b> {{ helpful.votes }} </p>
+					<p><b><h4>Date: </h4></b> {{ helpful.date }} </p>
+					<hr>
+				{% endfor %}
 	  		</div>
 		</div>
-	</div>
-	<br><br><br>
-	
+	</div> -->
+
 </body>
 <script>
 	function drawPieChart() {
@@ -165,11 +218,11 @@
 		// set the data
 		var data = [
 		{
-			x: "Genuine", 
+			x: "Genuine",
 			value: trueVal,
 			normal:  {
 				fill: "#1aff1a",
-				hatchFill: "percent50"        
+				hatchFill: "percent50"
 			},
 			hovered: {
 				fill: "#1aff1a",
@@ -191,7 +244,7 @@
 			}
 		},
 		{
-			x: "Deceptive", 
+			x: "Deceptive",
 			value: fakeVal,
 			normal:  {
 				fill: "#e60000",
@@ -268,21 +321,6 @@
 	anychart.onDocumentReady(function() {
 		drawBarGraph();
 		drawPieChart();
-
-		var stars = JSON.parse("{{ mostHelpful.stars|safe }}");
-		var img = document.getElementById("stars");
-
-		if (stars == 1) 
-			img.src = "{% static '1star.png' %}";
-		else if (stars == 2)
-			img.src = "{% static '2star.png' %}";
-		else if (stars == 3)
-			img.src = "{% static '3star.png' %}";
-		else if (stars == 4)
-			img.src = "{% static '4star.png' %}";
-		else if (stars == 5)
-			img.src = "{% static '5star.png' %}";
-
 	});
 
 </script>
