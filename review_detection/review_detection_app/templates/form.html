@@ -8,12 +8,45 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="css/flaticon.css"/>
+	<link rel="stylesheet" href="css/owl.carousel.css"/>
+	<link rel="stylesheet" href="css/magnific-popup.css"/>
+	<link rel="stylesheet" href="css/style.css"/>
 
     <style type="text/css">
 
+    	.topnav {
+		  overflow: hidden;
+		  background-color: #333;
+		  width:100%;
+		  position: fixed;
+		}
+
+		.topnav a {
+		  float: left;
+		  color: #f2f2f2;
+		  text-align: center;
+		  padding: 14px 16px;
+		  text-decoration: none;
+		  font-size: 17px;
+		}
+
+		.topnav a:hover {
+		  background-color: #ddd;
+		  color: black;
+		}
+
+		.topnav-right {
+		  float: right;
+		}
+
     	header {
     		text-align: center;
-			background:#99ccff;
+			background: #99ccff;
     		color: black;
     	}
 
@@ -51,16 +84,10 @@
     		width: 100%;
     	}
 
-    	footer {
-    		color: white;
-    		width: 100%;
-    		position: absolute;
-    		left: 0;
-    		bottom: 0;
-    		padding: 1px 1px;
-    		background-color: #233140;
-		}
-		
+    	hr{
+    		border-top-color: black;
+    	}
+
 		#id_url {
 			width: 70%;
 			margin: 0 auto;
@@ -79,7 +106,34 @@
 		}
 
 		.loader img {
-			height: 250px;
+			height: 200px;
+		}
+		p{
+			color: black;
+		}
+
+		.footer{
+			background-color: black;
+			align-content: center;
+			color: white;
+			height: 40px;
+		}
+		.footer p{
+			text-align: center;
+			color: white;
+			font-size: 25px;
+		}
+
+		#sample1{
+			height: 350px;
+			text-align: center;
+			padding: 0px 200px 0px 200px;
+		}
+
+		#sample2{
+			height: 350px;
+			text-align: center;
+			padding: 0px 150px 0px 150px;
 		}
 
     </style>
@@ -87,17 +141,18 @@
 </head>
 
 <body class="index homepage">
+		
+	<div class="topnav">
+	  <a href="#form">Review Detection</a>
+	  <div class="topnav-right">
+	    <a href="#about">About the App</a>
+	    <a href="#contact">Contact Us</a>
+	  </div>
+	</div>
 
-	<nav class="navbar navbar-default navbar-fixed-top navbar-custom">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<h2 style="color:white; ">Review Detection</h2>
-			</div>
-		</div>
-	</nav>
 
-	<header style="height: 97%;">
-		<div class="container">
+	<header>
+		<div class="container" id="form">
 			<div class="row maincontent">
 				<div class="intro-text">
 					<h1> Not sure Product reviews are Fake or Real? </h1>
@@ -112,52 +167,74 @@
 					<div class="input-group" style="margin: 0 auto;">
 						<label><h2>Enter URL</h2></label><br>
 					</div>
-					
+
 					{{ form.url }}
 
 					<br/><br/><br/>
 					<input class="btn btn-primary" type="submit" value="Submit" style="font-size: 20px;">
-				
+
 				</form>
+				<br><br><br><br><br><br><br>
+				<br id="about"><br>
+				<hr>
+				<h2 ><b> About the App </b></h2>
+				<hr>
+				<h4 style="text-align: left"><p>People prefer to read reviews about a product before spending their money. If reviews are mostly positive, they tend to buy product.Significance of reviews is misused by parties who create fake reviews to increase popularity of their product or to defame product of competitors. Some good reviews are added by product company to produce fake positive review. Other companies defame product of competitors by giving fake negative reviews due to competition. Hence, people come across mixed reviews. This App is a system which detects fake reviews by using Classification Machine learning Model. </p>
+				<br>
+
+				<p>One of the reasons people love shopping on <b>Amazon</b> <i class="fa fa-amazon" style="font-size:24px;color:#00008B"></i> is that you can see all of the product ratings and reviews provided by other customers. In theory, these reviews and ratings help you know which products are good and which are bad. Unfortunately, many of the Amazon reviews cannot be trusted.</p>
+				<br>
+				
+				<p><b>How to use this app?</b></p>
+				<p><b style='font-size:30px;'>&#8688;</b> All you need to do is to copy the URL of Your product from Amazon and then paste on the search bar as shown in the picture below.</p>
+				
+				<p style="margin-top: 15px"><b style='font-size:30px;'>&#8688;</b> It will take some time to fetch the reviews from amazon and then the result will be provided.</p>
+				<br>
+				
+				<p><b>What will be there in the result?</b></p>
+				<p>The result will consist of:</p>
+				<p><b style='font-size:30px;'>&#8688;</b> Adjusted Rating:</p>
+				
+				<p style="margin-top: 15px"><b style='font-size:30px;'>&#8688;</b> Pie chart of Defective and True reviews:</p>
+				<p>This Pie Chart is Used to represent the percentage of deceptive and genuine reviews of the product. The Red part of the chart consist total precentage of Deceptive reviews whereas the Green part consist total precentage of Genuine reviews.</p>
+				<br>
+				<img src="{% static '2.PNG' %}" id="sample1"><img>
+				
+				<p style="margin-top: 15px"><b style='font-size:30px;'>&#8688;</b>Double Bar Graph of Fake and true reviews as per Star rating:</p>
+				<p>The double bar graph on the left scale consist of star rating from 1-5. The light blue bar is used to represent the count of Genuine reviews for the provided rating and dark blue bar is used to represent the count of Deceptive reviews for the provided rating.</p>
+				<br>
+				<img src="{% static '3.PNG' %}" id="sample2"><img>
+				<br>
+				<p style="color: #00008B;margin-top: 25px; font-size: 30px"><b>Note:</b> Make sure you use the URL from Amazon <i class="fa fa-amazon" style="font-size:24px;color:black"></i>.</p>
+				</h4>
+
+				<br><br><br><br><br><br><br>
+
+				<hr id="contact">
+				<h2><b> Contact Us</b></h2>
+				<hr>
+				<h3 style="text-align: center">
+					<p>For any queries regarding the app Message us on the provided Email:</p>
+					<p><span>&#9993;</span>bhalodiahr@rknec.edu</p>
+                    <p><span>&#9993;</span>gajranibm@rknec.edu</p>
+                    <p><span>&#9993;</span>agrawalkd_1@rknec.edu</p>
+                    <br><br><br><br><br><br><br><br><br><br><br>
+				</h3>
+
 			</div>
 
-			<div class="row loader">
-				<img src="loading.gif"></img>
-				<h3>Your reviews are being processed...</h3>
-				<h3>Please wait...</h3>
+			<div class="row loader" style="height:100%">
+				<img src="{% static 'load.gif' %}"></img>
+				<br><br>
+				<h3><b>Your reviews are being processed...</b></h3>
+				<h3><b>Please wait...</b></h3>
 			</div>
 		</div>
 	</header>
 
-	<!-- Footer -->
-	<footer class="text-center maincontent">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-6 col-md-3 item">
-					<h3>Tools Used</h3>
-					<ul>
-						<li><a href="#">Web design</a></li>
-						<li><a href="#">Development</a></li>
-						<li><a href="#">Hosting</a></li>
-					</ul>
-				</div>
-				<div class="col-sm-6 col-md-3 item">
-					<h3>About</h3>
-					<ul>
-						<li><a href="#">Company</a></li>
-						<li><a href="#">Team</a></li>
-						<li><a href="#">Careers</a></li>
-					</ul>
-				</div>
-				<div class="col-md-6 item text">
-					<h3>Company Name</h3>
-					<p>Praesent sed lobortis mi. Suspendisse vel placerat ligula. Vivamus ac sem lacus. Ut vehicula rhoncus elementum. Etiam quis tristique lectus. Aliquam in arcu eget velit pulvinar dictum vel in justo.</p>
-				</div>
-				<div class="col item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a></div>
-			</div>
-		</div>
-	</footer>
-
+	<div class="footer maincontent">
+  		<p>Thank You for using this app. Hope it helped!</p>
+	</div>
 </body>
 
 <script>
