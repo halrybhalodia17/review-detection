@@ -4,6 +4,7 @@
 <head>
 	<title>Review database</title>
 	<meta charset="utf-8">
+	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -62,29 +63,14 @@
     	text-align: center;
     }
 
-    /* #container1 {
-    	background-color:#e6fff2;
-    	border: 5px solid #00b359;
-    	border-radius: 50px;
-    	margin-top: 10%;
-    }
-
-    #box1 {
-    	float: left;
-    	width: 30%;
-    	text-align: center;
-    	padding: 8% 0;
-    }
-
-    #box2 {
-    	box-sizing: border-box;
-		border-left: 5px solid #00b359;
-		width: 70%;
-		margin-top:0px;
-		color: black;
-		float: left;
-		padding: 2%;
-    } */
+    
+    #adj{
+	  margin: auto;
+	  border-style: solid;
+	  border-color: black;
+	  width:55%;
+	  background-color: #f0f5f5;
+	}
 
     #stars {
     	width: 50%;
@@ -100,13 +86,52 @@
 	table {
 		table-layout: fixed;
 		width: 100%;
+		border-top:3px solid black;
 	}
 
 	#helpfulReviews {
 		background-color:ghostwhite;
-		border: 1px solid black;
+		border: 3px solid black;
 	}
 
+	.rating{
+		align-content:center;
+		color: black;
+	}
+	#arrow{
+		width: 80%;
+		height:40%;
+	}
+	.final_rat{
+		font-size: 50px;
+	}
+
+	.stars-container {
+		position: relative;
+		display: inline-block;
+		text-align: center;
+		color: transparent;
+	}
+
+	.stars-container:before {
+		position: absolute;
+		top: 0;
+		left:0;
+		content: '★★★★★';
+		color: lightgray;
+	}
+
+	.stars-container:after {
+		position: absolute;
+		top: 0;
+		left: 0;
+		content: '★★★★★';
+		color: gold;
+		overflow: hidden;
+		}
+
+	.stars-0:after { width: {{ product.total_star }}%; }
+	.stars-1:after { width: {{adjusted_star}}%; }
 </style>
 
 <body>
@@ -137,8 +162,27 @@
         </div>
 	</div>
 
-	<hr style="height:1px;border-width:0;color:gray;background-color:gray; width: 85%;">
 
+	<div id="adj">
+		<div class="row" class="rating">
+			<div class="col-lg-4" >
+				<p style="font-size: 24px;font-weight: bold;margin-top: 8%; text-align: right;">Amazon <i style="color:#FF9C33" class="fa"> &#xf270; </i> Rating</p>
+				<p class="final_rat" style="margin-left: 55%">{{ product.star_rating}}</p>
+				<div><span class="stars-container stars-0">★★★★★</span></div>
+			</div>
+			<div class="col-lg-4">
+				<img src="{% static 'arrow1.gif' %}"  id="arrow"><img>
+			</div>
+			<div class="col-lg-4" >
+				<p style="font-size: 24px;font-weight: bold;margin-top: 8%; text-align:left;">Adjusted Rating</p>
+				<p class="final_rat" style="margin-right: 20%">{{ adjusted }}</p>
+				<div><span class="stars-container stars-1" style="height: 50%">★★★★★</span></div>
+			</div>
+		</div>
+	</div>
+
+	<hr style="height:1px;border-width:0;color:gray;background-color:gray; width: 85%;">
+	
 	<div class="container" style="margin-top: 2%; margin-bottom: 5%;">
 		<div class="row">
 			<div id="left" class="col-lg-5">
@@ -190,24 +234,6 @@
 		</div>
 	</div>
 
-	<!-- <div class="container" id="container1">
-		<div id="box">
-	  		<div id="box1">
-	  			<h3><b>Most Helpful Reviews</b></h3>
-	  			<p style="color: #00b359 ;font-size:70px;">&#129070;</p>
-	  		</div>
-	  		<div id="box2">
-				{% for helpful in mostHelpful %}
-					<p><b><h4>Title: </h4></b> {{ helpful.title }} </p>
-					<p><b><h4>Content: </h4></b> {{ helpful.content }} </p>
-					<!- <p><b><h4>Stars: </h4></b> <img src="#" id="stars"> </p> ->
-					<p><b><h4>Votes: </h4></b> {{ helpful.votes }} </p>
-					<p><b><h4>Date: </h4></b> {{ helpful.date }} </p>
-					<hr>
-				{% endfor %}
-	  		</div>
-		</div>
-	</div> -->
 
 </body>
 <script>

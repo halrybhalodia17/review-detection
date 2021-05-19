@@ -18,7 +18,7 @@ def geturl(request):
 
 		try:
 			product_code = getProductId(url)
-			true, fake, adjustedRating, star_t, star_f, mostHelpful = getReviews(product_code)
+			true, fake, adjustedRating,adjusted_star,star_t, star_f, mostHelpful = getReviews(product_code)
 
 			star_t = list(star_t.values())
 			star_t.reverse()
@@ -35,6 +35,7 @@ def geturl(request):
 				'true': true,
 				'fake': fake,
 				'adjusted': adjustedRating,
+				'adjusted_star':adjusted_star,
 				'star_t': star_t,
 				'star_f': star_f,
 				'mostHelpful': mostHelpful
@@ -117,9 +118,16 @@ def getProductInfo(url):
 		print(e)
 		price = "Not Found"
 
+	star_rating=float(rating.split(" ")[0])
+	total_star=int(star_rating*100 /5)
+
+
+	print(star_rating)
 	return {
 		"title": title,
 		"rating": rating,
+		"total_star":total_star,
+		"star_rating":star_rating,
 		"image": image,
 		"price": price
 	}
@@ -178,8 +186,8 @@ def getReviews(product_code):
 			star_f[s1] += 1
 
 	result = round(sum(adj_rating)/true, 2)
-	print(result)
-	return (true, fake, result, star_t, star_f, mostHelpfulReviews)
+	result_star= int(result*100 /5)
+	return (true, fake, result, result_star,star_t, star_f, mostHelpfulReviews)
 
 def getProductId(url):
 	try:
