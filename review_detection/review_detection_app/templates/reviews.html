@@ -63,13 +63,11 @@
     	text-align: center;
     }
 
-    
-    #adj{
-	  margin: auto;
-	  border-style: solid;
-	  border-color: black;
-	  width:55%;
-	  background-color: #f0f5f5;
+    #adj {
+		border: 2px solid black;
+	 	width: 55%;
+	  	background-color: #f0f5f5;
+		text-align: center;
 	}
 
     #stars {
@@ -98,25 +96,33 @@
 		align-content:center;
 		color: black;
 	}
+
 	#arrow{
 		width: 80%;
-		height:40%;
+		height: 40%;
 	}
+
+	.star_heading {
+		font-size: 24px;
+		font-weight: bold;
+	}
+
 	.final_rat{
 		font-size: 50px;
+		text-align: center;
 	}
 
 	.stars-container {
 		position: relative;
 		display: inline-block;
 		text-align: center;
-		color: transparent;
+		font-size: 40px;
 	}
 
 	.stars-container:before {
 		position: absolute;
 		top: 0;
-		left:0;
+		left: 0;
 		content: '★★★★★';
 		color: lightgray;
 	}
@@ -128,7 +134,7 @@
 		content: '★★★★★';
 		color: gold;
 		overflow: hidden;
-		}
+	}
 
 	.stars-0:after { width: {{ product.total_star }}%; }
 	.stars-1:after { width: {{adjusted_star}}%; }
@@ -162,27 +168,28 @@
         </div>
 	</div>
 
-
-	<div id="adj">
+	<div class="container" id="adj">
 		<div class="row" class="rating">
-			<div class="col-lg-4" >
-				<p style="font-size: 24px;font-weight: bold;margin-top: 8%; text-align: right;">Amazon <i style="color:#FF9C33" class="fa"> &#xf270; </i> Rating</p>
-				<p class="final_rat" style="margin-left: 55%">{{ product.star_rating}}</p>
-				<div><span class="stars-container stars-0">★★★★★</span></div>
+			<div style="margin-top: 7%; margin-bottom: 7%;" class="col-lg-4 col-md-4 col-sm-4" >
+				<font class="star_heading">Amazon <i style="color:#FF9C33" class="fa"> &#xf270; </i> Rating</font>
+				<p class="final_rat"> {{ product.star_rating}} </p>
+				<span class="stars-container stars-0">★★★★★</span>
 			</div>
-			<div class="col-lg-4">
-				<img src="{% static 'arrow1.gif' %}"  id="arrow"><img>
+
+			<div class="col-lg-4 col-md-4 col-sm-4">
+				<img src="{% static 'arrow1.gif' %}" id="arrow"/>
 			</div>
-			<div class="col-lg-4" >
-				<p style="font-size: 24px;font-weight: bold;margin-top: 8%; text-align:left;">Adjusted Rating</p>
-				<p class="final_rat" style="margin-right: 20%">{{ adjusted }}</p>
-				<div><span class="stars-container stars-1" style="height: 50%">★★★★★</span></div>
+
+			<div style="margin-top: 7%; margin-bottom: 7%;" class="col-lg-4 col-md-4 col-sm-4" >
+				<font class="star_heading">Adjusted Rating</font>
+				<p class="final_rat">{{ adjusted }}</p>
+				<span class="stars-container stars-1">★★★★★</span>
 			</div>
 		</div>
 	</div>
 
 	<hr style="height:1px;border-width:0;color:gray;background-color:gray; width: 85%;">
-	
+
 	<div class="container" style="margin-top: 2%; margin-bottom: 5%;">
 		<div class="row">
 			<div id="left" class="col-lg-5">

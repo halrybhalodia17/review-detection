@@ -81,11 +81,21 @@ def getviews(product_code):
 
 def getProductInfo(url):
 	# Set headers
-	headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0", "Accept-Encoding":"gzip, deflate", "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "DNT":"1","Connection":"close", "Upgrade-Insecure-Requests":"1"}
+	headers = {
+		"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0",
+		"Accept-Encoding":"gzip, deflate",
+		"Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+		"DNT":"1",
+		"Connection":"close",
+		"Upgrade-Insecure-Requests":"1"
+	}
 
 	# Connect to the URL
 	response = requests.get(url, headers=headers)
 	soup = BeautifulSoup(response.content, 'html.parser')
+
+	if "not a robot" in soup.text:
+		print("\n" + "-"*15 + "Captcha Required" + "-"*15 + "\n")
 
 	# Parse HTML and save to BeautifulSoup object
 	try:
@@ -118,11 +128,14 @@ def getProductInfo(url):
 		print(e)
 		price = "Not Found"
 
-	star_rating=float(rating.split(" ")[0])
-	total_star=int(star_rating*100 /5)
+	try:
+		star_rating = float(rating.split(" ")[0])
+		total_star = int(star_rating*100/5)
+	except Exception as e:
+		print(e)
+		star_rating = 4.0
+		total_star = 80
 
-
-	print(star_rating)
 	return {
 		"title": title,
 		"rating": rating,
