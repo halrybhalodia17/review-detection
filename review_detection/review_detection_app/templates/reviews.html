@@ -65,7 +65,7 @@
 
     #adj {
 		border: 2px solid black;
-	 	width: 55%;
+	 	width: 50%;
 	  	background-color: #f0f5f5;
 		text-align: center;
 	}
@@ -151,7 +151,7 @@
             <div class="col-lg-4">
                 <img class="img-responsive" src="{{ product.image }}">
                 <br><br>
-                <a id="producturl" href="{{ product.url }}" target="_blank">View the product on Amazon</a>
+                <a id="producturl" href="{{ product.url }}" target="_blank" style="">View the product on Amazon</a>
 			</div>
 
 			<div class="col-lg-8">
@@ -170,18 +170,20 @@
 
 	<div class="container" id="adj">
 		<div class="row" class="rating">
-			<div style="margin-top: 7%; margin-bottom: 7%;" class="col-lg-4 col-md-4 col-sm-4" >
+			<div style="margin-top: 6%; margin-bottom: 4%;" class="col-lg-4 col-md-4 col-sm-4" >
 				<font class="star_heading">Amazon <i style="color:#FF9C33" class="fa"> &#xf270; </i> Rating</font>
+				<br><br>
 				<p class="final_rat"> {{ product.star_rating}} </p>
 				<span class="stars-container stars-0">★★★★★</span>
 			</div>
 
-			<div class="col-lg-4 col-md-4 col-sm-4">
+			<div class="col-lg-4 col-md-4 col-sm-4" style="margin-top: 7%; margin-bottom: 4%;">
 				<img src="{% static 'arrow1.gif' %}" id="arrow"/>
 			</div>
 
-			<div style="margin-top: 7%; margin-bottom: 7%;" class="col-lg-4 col-md-4 col-sm-4" >
+			<div style="margin-top: 6%; margin-bottom: 4%;" class="col-lg-4 col-md-4 col-sm-4" >
 				<font class="star_heading">Adjusted Rating</font>
+				<br><br>
 				<p class="final_rat">{{ adjusted }}</p>
 				<span class="stars-container stars-1">★★★★★</span>
 			</div>
